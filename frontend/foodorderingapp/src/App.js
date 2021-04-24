@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {Route,Switch} from 'react-router-dom';
-import Header from './Component/Header';
-import LandingPage from './Component/LandingPage';
+import Header from './Component/header/Header';
+import LandingPage from './Component/landing/LandingPage';
 import axios from 'axios';
-import Pizza from './Component/Pizza';
-import Burger from './Component/Burger';
-import Cart from './Component/Cart';
+import Pizza from './Component/pizza/Pizza';
+import Burger from './Component/burger/Burger';
+import Cart from './Component/cart/Cart';
 function App() {
 
-
-  const [data,setData]= useState([]);
   const [cart,setCart]= useState([]);
+  const [data,setData]= useState([]);
   useEffect(() => {
-          async function fetchData(){
-         const response= await axios.get('/data')
-         console.log(response);
-         setData(response.data.results);
+        async function fetchData(){
+        const response= await axios.get('/data')
+        console.log(response);
+        setData(response.data.results);
         return response
        }
      
@@ -28,8 +27,6 @@ async function fetchCartData(){
   setCart(response.data);
  return response
 } 
-
-
 
 const incrementValue=(items)=>{
   const itemDetails={
@@ -46,7 +43,6 @@ const removeCartItem=(index,items)=>{
   setCart(
     cart.filter((item,itemindex)=> index!==itemindex)
   )
-  // setValue(value-1);
   const data={
     _id:items._id
 }

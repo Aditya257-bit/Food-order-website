@@ -3,9 +3,19 @@ const app = express();
 const fs = require('fs');
 const mongoose= require('mongoose');
 
-app.use(express.json())
+app.use(express.json());
+const port = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost:27017/fooditemsdatabase',{useNewUrlParser:true,useFindAndModify:false,useUnifiedTopology:true})
+mongoose.connect('mongodb://localhost:27017/fooditemsdatabase',
+    {
+        useNewUrlParser:true,
+        useFindAndModify:false,
+        useUnifiedTopology:true
+    }).then(() => {
+        console.log("Connection Successful");
+    }).catch((error) => {
+        console.log("Connection Error");
+    })
 
 const Schema = new mongoose.Schema({
 
@@ -76,6 +86,6 @@ app.delete('/clearCart',(req, res)=>{
         res.json(result);
     })
 })
-app.listen('8000',()=>{
-    console.log("App is running");
+app.listen(port,()=>{
+    console.log(`Listening on port ${port}`);
 }) 
