@@ -6,7 +6,7 @@ const mongoose= require('mongoose');
 app.use(express.json());
 const port = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost:27017/fooditemsdatabase',
+mongoose.connect('mongodb://localhost:27017/Items',
     {
         useNewUrlParser:true,
         useFindAndModify:false,
@@ -20,24 +20,20 @@ mongoose.connect('mongodb://localhost:27017/fooditemsdatabase',
 const Schema = new mongoose.Schema({
 
     name:{
-        type:String,
-        required:true
+        type:String
     },
     price:{
-        type:String,
-        required:true
+        type:String
     },
     image:{
-        type:String,
-        required:true
+        type:String
     },
     description:{
-        type:String,
-        required:true
+        type:String
     }
 
-},{versionKey:false}) 
-const CartItem = mongoose.model('CartItem',Schema)
+}) 
+const CartItem = mongoose.model('CartData',Schema);
 
 
 app.get('/data', function(req, res){
@@ -52,11 +48,10 @@ fs.readFile('./data.json','utf-8',(err, data)=>{
     })
 })
 
-
-
 app.get('/cartData',(req, res)=>{
     CartItem.find().then((data) => res.json(data))
-})
+});
+
 app.post('/addData',(req,res)=>{
 
     const addFoodItems = new CartItem({
